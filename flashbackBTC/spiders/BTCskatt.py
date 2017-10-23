@@ -8,11 +8,10 @@ class BtcskattSpider(scrapy.Spider):
     start_urls = ['https://www.flashback.org/t2680579/']
 
     def parse(self, response):
-        timeDate = response.xpath('.//*/div[@class="post-heading"]/text()').extract()
-        userName = response.xpath('.//*[@class="post-user-username dropdown-toggle"]/text()').extract()
-        profileUrls = response.xpath('.//*[@class="post-user-username dropdown-toggle"]/@href').extract()
-        postMsg = response.xpath('.//*/div[@class="post_message"]/text()').extract()
-
+        timeDate = [s.strip() for s in response.xpath('.//*/div[@class="post-heading"]/text()').extract()]
+        userName = [s.strip() for s in response.xpath('.//*[@class="post-user-username dropdown-toggle"]/text()').extract()]
+        profileUrls = [s.strip() for s in response.xpath('.//*[@class="post-user-username dropdown-toggle"]/@href').extract()]
+        postMsg = [s.strip() for s in response.xpath('.//*/div[@class="post_message"]/text()').extract()]
 
         yield{'TimeDate': timeDate,
               'UserName': userName,
